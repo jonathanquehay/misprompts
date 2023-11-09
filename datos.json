@@ -1,8 +1,8 @@
 {
   "archivos": [
     {
-      "titulo": "Documento 1",
-      "descripcion": "Descripción del Documento 1",
+      "titulo": "Creación de un plan de estudio",
+      "descripcion": "Creado a partir de un prompt con todos los detalles",
       "vinculo": "archivos/plan de clase_generado.html"
     },
     {
