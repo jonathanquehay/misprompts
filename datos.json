@@ -1,0 +1,34 @@
+{
+  "archivos": [
+    {
+      "titulo": "Documento 1",
+      "descripcion": "Descripción del Documento 1",
+      "vinculo": "archivos/plan de clase_generado.html"
+    },
+    {
+      "titulo": "Documento 2",
+      "descripcion": "Descripción del Documento 2",
+      "vinculo": "archivos/plan de clase_generado.html"
+    },
+    {
+      "titulo": "Documento 3",
+      "descripcion": "Descripción del Documento 3",
+      "vinculo": "archivos/plan de clase_generado.html"
+    },
+{
+      "titulo": "Documento 4",
+      "descripcion": "Descripción del Documento 4",
+      "vinculo": "archivos/plan de clase_generado.html"
+    },
+{
+      "titulo": "Documento 5",
+      "descripcion": "Descripción del Documento 5",
+      "vinculo": "archivos/plan de clase_generado.html"
+    },
+{
+      "titulo": "Documento 6",
+      "descripcion": "Descripción del Documento 6",
+      "vinculo": "archivos/plan de clase_generado.html"
+    }
+  ]
+}

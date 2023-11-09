@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>Mi Lista de Prompts</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    #banner {
+      background-color: #3498db;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      /* Sombra ligera */
+      transition: transform 0.2s ease-in-out;
+      /* Transición para el efecto */
+      cursor: pointer;
+      /* Cambiar el cursor al pasar sobre el banner */
+    }
+
+    #banner:hover {
+      transform: scale(1.05);
+      /* Efecto de escala al pasar el mouse */
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .file-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .file-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      width: calc(33.33% - 20px);
+      /* Ajusta según la cantidad de tarjetas por fila */
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      position: relative;
+      transition: box-shadow 0.3s, transform 0.3s;
+      /* Transiciones para el efecto al pasar el mouse */
+    }
+
+    .file-card:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      /* Efecto de sombra al pasar el mouse */
+      transform: scale(1.03);
+      /* Efecto de escala al pasar el mouse */
+    }
+
+    .file-card h2 {
+      color: #fff;
+      background-color: #3498db;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .file-card p {
+      color: #555;
+    }
+
+    .file-card a {
+      display: block;
+      margin-top: 10px;
+      color: #fff;
+      background-color: #555;
+      /* Color de fondo para el enlace */
+      padding: 8px 12px;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .emoticon {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 20px;
+    }
+
+    #counter {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #motivational-text {
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    #footer {
+      margin-top: 50px;
+      text-align: center;
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #footer p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    /* Media queries para dispositivos más pequeños */
+    @media only screen and (max-width: 768px) {
+      .file-card {
+        width: calc(50% - 20px);
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .file-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="banner">
+    <h1>Bienvenido a Mi Lista de Prompts</h1>
+    <p id="motivational-text">Explora e inspira tu creatividad</p>
+  </div>
+
+  <div id="file-cards" class="file-cards"></div>
+
+  <div id="counter"></div>
+
+  <!-- Script para cargar y mostrar las tarjetas de archivos -->
+  <script>
+    var fileCardsContainer = document.getElementById("file-cards");
+    var counterElement = document.getElementById("counter");
+    var motivationalTextElement = document.getElementById("motivational-text");
+    var cardCounter = 0;
+
+    // Frases motivadoras
+    var motivationalPhrases = [
+      "La creatividad es la inteligencia divirtiéndose.",
+      "No hay reglas para la buena escritura, solo hay buenas escrituras.",
+      "La creatividad es contagiosa, pásala.",
+      "El único modo de hacer un gran trabajo es amar lo que haces.",
+      "La imaginación es más importante que el conocimiento.",
+      "La creatividad es inventar, experimentar, crecer, tomar riesgos, romper reglas, cometer errores y divertirse.",
+      "La mejor manera de predecir el futuro es crearlo.",
+      "Sé tú mismo; todos los demás ya están tomados."
+    ];
+
+    // Actualizar la frase motivadora cada 10 segundos
+    setInterval(function () {
+      var randomIndex = Math.floor(Math.random() * motivationalPhrases.length);
+      motivationalTextElement.textContent = motivationalPhrases[randomIndex];
+    }, 10000);
+
+    // Colores predefinidos para las tarjetas
+    var cardColors = ["#3498db", "#e74c3c", "#2ecc71", "#f39c12", "#9b59b6", "#34495e", "#1abc9c", "#d35400"];
+
+    // Emoticonos predefinidos para las tarjetas
+    var emoticons = ["😊", "🌟", "🎨", "📚", "💡", "🚀", "✨", "🔥"];
+
+    // Realizar una solicitud XMLHttpRequest para obtener la lista de archivos
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        var files = response.archivos;
+        displayFileCards(files);
+      }
+    };
+    xhr.open("GET", "datos.json", true);
+    xhr.send();
+
+    function displayFileCards(files) {
+      files.forEach(function (file, index) {
+        cardCounter++;
+
+        var card = document.createElement("div");
+        card.className = "file-card";
+
+        var title = document.createElement("h2");
+        title.textContent = file.titulo;
+        title.style.backgroundColor = cardColors[index % cardColors.length]; // Asignar colores de forma cíclica
+
+        var description = document.createElement("p");
+        description.textContent = file.descripcion;
+
+        var link = document.createElement("a");
+        link.href = file.vinculo;
+        link.textContent = "Abrir documento";
+        var emoticon = document.createElement("div");
+        emoticon.className = "emoticon";
+        emoticon.textContent = emoticons[index % emoticons.length]; // Asignar emoticonos de forma cíclica
+
+        card.appendChild(emoticon); // Agregar emoticono antes del título
+        card.appendChild(title);
+        card.appendChild(description);
+        card.appendChild(link);
+
+        // Abrir el documento en una nueva pestaña al hacer clic en el enlace
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          window.open(file.vinculo, "_blank");
+        });
+
+        fileCardsContainer.appendChild(card);
+      });
+
+      counterElement.textContent = "Número total de tarjetas: " + cardCounter;
+    }
+  </script>
+
+  <div id="footer">
+    <p>&copy; 2023 Jonathan Moreno</p>
+    <p>Email: <a href="mailto:jomoreno@unan.edu.ni">jomoreno@unan.edu.ni</a> | <a
+        href="mailto:jjmore83@gmail.com">jjmore83@gmail.com</a></p>
+  </div>
+</body>
+
+</html>
