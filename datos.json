@@ -24,6 +24,11 @@
       "titulo": "Plan clase de un tema",
       "descripcion": "Creación de un plan de clase por tiempo y estructurado",
       "vinculo": "archivos/plan_clase_tema.html"
+    },
+    {
+      "titulo": Prompts Jonathan Moreno",
+      "descripcion": "Prompts para el minitaller",
+      "vinculo": "archivos/Prompts Jonathan Moreno.html"
     }
 
   ]
