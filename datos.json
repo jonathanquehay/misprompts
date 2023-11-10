@@ -21,9 +21,9 @@
       "vinculo": "archivos/profesor_personal.html"
     },
 {
-      "titulo": "Documento 5",
-      "descripcion": "Descripción del Documento 5",
-      "vinculo": "archivos/plan de clase_generado.html"
+      "titulo": "Plan clase de un tema",
+      "descripcion": "Creación de un plan de clase por tiempo y estructurado",
+      "vinculo": "archivos/plan_clase_tema.html"
     }
 
   ]
